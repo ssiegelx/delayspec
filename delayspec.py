@@ -232,7 +232,7 @@ def delay_spectrum(fmeas, vis_arr, weight_arr, h=0.1, res=10,
     For more information, see:
 
         D. H. Roberts, J. Lehar, and J. W. Dreher.
-        “Time Series Analysis with Clean - Part One - Derivation of a Spectrum”.
+        "Time Series Analysis with Clean - Part One - Derivation of a Spectrum".
         In: AJ 93 (Apr. 1987), p. 968. doi: 10.1086/114383
 
     Parameters
