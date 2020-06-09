@@ -88,7 +88,7 @@ def peak_finder(tau, S, window_size=100.0, nsig=5.0, nsmooth=5):
 
     if nsmooth > 1:
         smooth_peak_flag = running_mean(peak_flag, nsmooth) > 0
-        aa = nsmooth/2
+        aa = nsmooth // 2
         bb = aa + smooth_peak_flag.size
         peak_flag[aa:bb] |= smooth_peak_flag
 
@@ -423,8 +423,8 @@ def func_clean(freq, vis, smp, niter, h=0.1, res=1, output_all=False,
         tau_d = np.fft.fftfreq(ntau, d=dfreq*1e6) * 1e9
 
         # Discard high delays
-        index_keep = np.concatenate((np.arange(0, ntau / (2 * navg)),
-                                     np.arange(ntau - ntau / (2 * navg), ntau)))
+        index_keep = np.concatenate((np.arange(0, ntau // (2 * navg)),
+                                     np.arange(ntau - ntau // (2 * navg), ntau)))
 
         R = R[index_keep]
         tau_d = tau_d[index_keep]
@@ -465,7 +465,7 @@ def func_clean(freq, vis, smp, niter, h=0.1, res=1, output_all=False,
 
     elif window_type == 'average':
 
-        ntau = nfreq / navg
+        ntau = nfreq // navg
         nsmp = navg * ntau
 
         # Normalize the weights
@@ -561,7 +561,7 @@ def func_clean(freq, vis, smp, niter, h=0.1, res=1, output_all=False,
         Rall = Rall[0:(niter+1), :]
 
     if verbose:
-        print "%d iterations." % niter
+        print("%d iterations." % niter)
 
     # Calculate clean beam
     ndiv = 8
@@ -571,7 +571,7 @@ def func_clean(freq, vis, smp, niter, h=0.1, res=1, output_all=False,
     tau_b = np.fft.fftfreq(ndiv*nsmp, d=dfreq*1e6) * 1e9
 
     # Fit clean beam to gaussian
-    ifit = np.arange(-res*ndiv/2, res*ndiv/2 + 1)
+    ifit = np.arange(-res * ndiv // 2, res * ndiv // 2 + 1, dtype=np.int)
 
     x = tau_b[ifit]
     x2 = np.tile(x, 2)
@@ -737,7 +737,7 @@ def func_gaussian_with_phase_gradient(x, peak_amplitude, centroid, fwhm,
     """
 
     model = np.empty_like(x)
-    nreal = len(x)/2
+    nreal = len(x) // 2
 
     model_amp = peak_amplitude*np.exp(-4.0*np.log(2.0)*((x[:nreal] - centroid)/fwhm)**2)
     model_phase = np.deg2rad(phase_intercept + phase_slope*(x[:nreal] - centroid))
